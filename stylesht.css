@@ -1,0 +1,310 @@
+/* Global Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Full-Screen Background */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top left, #6a11cb, #2575fc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  cursor: auto;
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+/* Theme Overrides */
+body[data-theme="blue-hour"] {
+  background: radial-gradient(circle at top left, #6a11cb, #2575fc);
+}
+
+body[data-theme="sunset"] {
+  background: linear-gradient(135deg, #FF5E3A, #FF2A68);
+}
+
+body[data-theme="autumn-afternoon"] {
+  background: linear-gradient(135deg, #FFB347, #FFCC33);
+  color: #000;
+}
+
+/* Ensure text elements in autumn theme use dark text */
+body[data-theme="autumn-afternoon"] h1,
+body[data-theme="autumn-afternoon"] h2,
+body[data-theme="autumn-afternoon"] p {
+  color: #000;
+}
+
+/* Main Layout */
+#content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  min-height: 70vh;
+  padding: 30px;
+  gap: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(255, 255, 255, 0.15);
+  animation: fadeInUp 1s ease-in-out;
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out, border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+/* About Section */
+#about {
+  flex: 1;
+  max-width: 35%;
+  text-align: left;
+  color: white;
+  transition: color 0.5s ease-in-out;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  transition: color 0.5s ease-in-out;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  transition: color 0.5s ease-in-out;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.9;
+  transition: color 0.5s ease-in-out;
+}
+
+/* Platform Section */
+#platform {
+  flex: 1.5;
+  max-width: 55%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: 0 8px 40px rgba(255, 255, 255, 0.15);
+  transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+/* App Boxes */
+.project {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease-in-out, color 0.5s ease-in-out;
+  font-weight: bold;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Hover Effects for Projects */
+.project:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Assign Background Images to Projects */
+.project1 { background-image: url('images/todo.png'); }
+.project2 { background-image: url('images/tictactoe.png'); }
+.project3 { background-image: url('images/currency.png'); }
+.project4 { background-image: url('images/coming-soon.jpg'); }
+.project5 { background-image: url('images/coming-soon.jpg'); }
+
+/* Particle Canvas */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Flashlight Effect */
+#flashlight {
+  position: fixed;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 10%, rgba(0, 0, 0, 0.9) 80%);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(30px);
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: background 0.5s ease-in-out;
+}
+
+/* Glass Button (Contact) */
+.contact-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.glass-button {
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+/* Theme Buttons Container */
+#theme-buttons {
+  position: fixed;
+  top: 20px;
+  right: 20px; /* Move to the top right */
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#theme-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+
+/* Theme Button Styles (visible across themes) */
+.theme-btn {
+  margin: 0 5px;
+  padding: 10px 15px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, border 0.3s;
+}
+
+.theme-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Active theme button styling: for clarity, active button glows */
+.theme-btn.active {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  color: black;
+}
+
+/* Autumn Afternoon Overrides (for better contrast) */
+body[data-theme="autumn-afternoon"] .glass-button,
+body[data-theme="autumn-afternoon"] .project,
+body[data-theme="autumn-afternoon"] h1,
+body[data-theme="autumn-afternoon"] h2,
+body[data-theme="autumn-afternoon"] p,
+body[data-theme="autumn-afternoon"] a {
+  color: #000;
+}
+
+body[data-theme="autumn-afternoon"] .glass-button {
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.45));
+  border: 1px solid rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Keyframes */
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Particle hiding for non-blue-hour themes */
+.hide-particles #particles {
+  display: none;
+}
+
+#theme-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+
+body[data-theme="autumn-afternoon"] #theme-label {
+  color: black;
+}
+/* Logo Container: Fixed at top center */
+#logo-container {
+  position: fixed;
+  top: 10px;            /* Adjust vertical spacing as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;       /* Ensure it sits above other elements */
+  text-align: center;
+}
+
+/* Logo Image */
+#logo {
+  max-height: 80px;     /* Adjust size as needed */
+  width: auto;
+}
+/* Logo Container: Fixed at top center */
+#logo-container {
+  position: fixed;
+  top: 10px;            /* Adjust vertical spacing as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;       /* Ensure it sits above other elements */
+  text-align: center;
+}
+
+/* Logo Image */
+#logo {
+  max-height: 80px;     /* Adjust size as needed */
+  width: auto;
+}
