@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
     window.open("https://gurjarmadanmohand.github.io/tictactoe/", "_blank");
   });
    document.getElementById("app3").addEventListener("click", function () {
-    window.open("https://gurjarmadanmohand.github.io/tictactoe/", "_blank");
+    window.open("https://gurjarmadanmohand.github.io/currency-converter/", "_blank");
   });
 
 
