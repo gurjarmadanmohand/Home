@@ -1,148 +1,395 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Create Audio object for theme button clicks
-  const themeSound = new Audio('sounds/theme-click.mp3');
-  themeSound.volume = 0.5;
+/* Global Styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  // Create the flashlight element
-  let flashlight = document.createElement("div");
-  flashlight.id = "flashlight";
-  document.body.appendChild(flashlight);
+/* Full-Screen Background */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: radial-gradient(circle at top left, #6a11cb, #2575fc);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  cursor: auto;
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
 
-  // Move the flashlight exactly to the cursor
-  document.addEventListener("mousemove", (e) => {
-    const { clientX: x, clientY: y } = e;
-    requestAnimationFrame(() => {
-      flashlight.style.left = `${x}px`;
-      flashlight.style.top = `${y}px`;
-    });
-  });
+/* Theme Overrides */
+body[data-theme="blue-hour"] {
+  background: radial-gradient(circle at top left, #6a11cb, #2575fc);
+}
 
-  // Add click events for project elements
-  document.getElementById("app1").addEventListener("click", function () {
-    window.open("https://gurjarmadanmohand.github.io/Todo-App/", "_blank");
-  });
-  document.getElementById("app2").addEventListener("click", function () {
-    window.open("https://gurjarmadanmohand.github.io/tictactoe/", "_blank");
-  });
-  document.getElementById("app3").addEventListener("click", function () {
-    window.open("https://gurjarmadanmohand.github.io/currency-converter/", "_blank");
-  });
+body[data-theme="sunset"] {
+  background: linear-gradient(135deg, #FF5E3A, #FF2A68);
+}
 
-  // Particle Animation Setup
-  const canvas = document.getElementById("particles");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  let particlesArray = [];
+body[data-theme="autumn-afternoon"] {
+  background: linear-gradient(135deg, #FFB347, #FFCC33);
+  color: #000;
+}
 
-  // Particle Class
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 4 + 1; // Size of particles
-      this.speedX = Math.random() * 3 - 1.5; // Horizontal speed
-      this.speedY = Math.random() * 3 - 1.5; // Vertical speed
-      this.color = `rgba(255, 255, 255, ${Math.random()})`; // White with transparency
-    }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      // Reposition if out of bounds
-      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-    }
-    draw() {
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.fill();
-    }
+/* Ensure text elements in autumn theme use dark text */
+body[data-theme="autumn-afternoon"] h1,
+body[data-theme="autumn-afternoon"] h2,
+body[data-theme="autumn-afternoon"] p {
+  color: #000;
+}
+
+/* Main Layout */
+#content-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  min-height: 70vh;
+  padding: 30px;
+  gap: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 8px 40px rgba(255, 255, 255, 0.15);
+  animation: fadeInUp 1s ease-in-out;
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out, border 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+/* About Section */
+#about {
+  flex: 1;
+  max-width: 35%;
+  text-align: left;
+  color: white;
+  transition: color 0.5s ease-in-out;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  transition: color 0.5s ease-in-out;
+}
+
+h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  transition: color 0.5s ease-in-out;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.5;
+  opacity: 0.9;
+  transition: color 0.5s ease-in-out;
+}
+
+/* Platform Section */
+#platform {
+  flex: 1.5;
+  max-width: 55%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  box-shadow: 0 8px 40px rgba(255, 255, 255, 0.15);
+  transition: background 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
+
+/* App Boxes */
+.project {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  text-transform: uppercase;
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease-in-out, color 0.5s ease-in-out;
+  font-weight: bold;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Hover Effects for Projects */
+.project:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Assign Background Images to Projects */
+.project1 { background-image: url('images/todo.png'); }
+.project2 { background-image: url('images/tictactoe.png'); }
+.project3 { background-image: url('images/currency.png'); }
+.project4 { background-image: url('images/coming-soon.jpg'); }
+.project5 { background-image: url('images/coming-soon.jpg'); }
+
+/* Particle Canvas */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Flashlight Effect */
+#flashlight {
+  position: fixed;
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.4) 10%, rgba(0, 0, 0, 0.9) 80%);
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: blur(30px);
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: background 0.5s ease-in-out;
+}
+
+/* Glass Button (Contact) */
+.contact-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.glass-button {
+  display: inline-block;
+  padding: 14px 28px;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+/* Theme Buttons Dock (Glass Dock) */
+#theme-buttons {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 8px 40px rgba(255, 255, 255, 0.15);
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+/* Theme Label */
+#theme-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+}
+body[data-theme="autumn-afternoon"] #theme-label {
+  color: black;
+}
+
+/* Theme Button Styles (visible across themes) */
+.theme-btn {
+  margin: 0 5px;
+  padding: 10px 15px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, border 0.3s;
+}
+
+.theme-btn:hover {
+  background: rgba(0, 0, 0, 0.7);
+}
+
+/* Active theme button styling: for clarity, active button glows */
+.theme-btn.active {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+  color: black;
+}
+
+/* Autumn Afternoon Overrides (for better contrast) */
+body[data-theme="autumn-afternoon"] .glass-button,
+body[data-theme="autumn-afternoon"] .project,
+body[data-theme="autumn-afternoon"] h1,
+body[data-theme="autumn-afternoon"] h2,
+body[data-theme="autumn-afternoon"] p,
+body[data-theme="autumn-afternoon"] a {
+  color: #000;
+}
+
+body[data-theme="autumn-afternoon"] .glass-button {
+  background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,255,255,0.45));
+  border: 1px solid rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-
-  // Initialize Particles (renamed to initParticles)
-  function initParticles() {
-    particlesArray = [];
-    for (let i = 0; i < 50; i++) {
-      particlesArray.push(new Particle());
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
+}
 
-  // Animate Particles
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particlesArray.forEach((particle) => {
-      particle.update();
-      particle.draw();
-    });
-    requestAnimationFrame(animateParticles);
+/* Particle hiding for non-blue-hour themes */
+.hide-particles #particles {
+  display: none;
+}
+
+/* Logo Container: Fixed at top center */
+#logo-container {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  text-align: center;
+}
+
+/* Logo Image */
+#logo {
+  max-height: 80px;
+  width: auto;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  /* Stack main content vertically */
+  #content-wrapper {
+    flex-direction: column;
+    gap: 20px;
+    padding: 15px;
+    width: 95%;
   }
-
-  // Adjust canvas on resize
-  window.addEventListener("resize", () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initParticles();
-  });
-
-  // Start Particle Animation
-  initParticles();
-  animateParticles();
-
-  // Theme Button Functionality
-  const themeButtons = document.querySelectorAll('.theme-btn');
-
-  // Helper function to clear active class on theme buttons
-  function clearActiveTheme() {
-    themeButtons.forEach(btn => btn.classList.remove('active'));
+  /* Make About and Platform sections full width */
+  #about, #platform {
+    max-width: 100%;
+    width: 100%;
   }
+  /* Adjust theme dock: move to top center for mobile */
+  #theme-buttons {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 5px;
+    padding: 5px 10px;
+    flex-wrap: wrap;
+  }
+  .theme-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 2px;
+  }
+  /* Adjust logo container */
+  #logo-container {
+    top: 5px;
+  }
+  #logo {
+    max-height: 50px;
+  }
+  /* Adjust headings and text for mobile */
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  p {
+    font-size: 0.85rem;
+  }
+  /* Adjust contact button on mobile */
+  .glass-button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  /* For app icons, use a grid for 2 columns */
+  #platform {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 15px;
+  }
+  .project {
+    width: 120px;
+    height: 120px;
+    font-size: 16px;
+  }
+}
 
-  // Listen for clicks on each theme button
-  themeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Play sound effect on theme button click
-      themeSound.currentTime = 0;
-      themeSound.play();
-
-      const theme = btn.getAttribute('data-theme');
-
-      // Set the theme attribute on the body
-      document.body.setAttribute('data-theme', theme);
-
-      // Clear active classes and mark the clicked button as active
-      clearActiveTheme();
-      btn.classList.add('active');
-
-      // For non-blue-hour themes, hide the particles canvas; show them for blue-hour
-      if (theme !== 'blue-hour') {
-        document.body.classList.add('hide-particles');
-      } else {
-        document.body.classList.remove('hide-particles');
-      }
-
-      // Add specific overlay effects based on the theme
-      if (theme === 'sunset') {
-        document.body.classList.add('sunset-overlay-active');
-        let overlay = document.querySelector('.sunset-overlay');
-        if (!overlay) {
-          overlay = document.createElement('div');
-          overlay.className = 'sunset-overlay';
-          document.body.appendChild(overlay);
-        }
-      } else {
-        const overlay = document.querySelector('.sunset-overlay');
-        if (overlay) overlay.remove();
-        document.body.classList.remove('sunset-overlay-active');
-      }
-
-      if (theme === 'autumn-afternoon') {
-        document.body.classList.add('autumn-overlay-active');
-      } else {
-        document.body.classList.remove('autumn-overlay-active');
-      }
-
-      // Reinitialize particles so they reflect the new theme’s colors
-      initParticles();
-    });
-  });
-});
+/* Additional Mobile Fixes for very small devices */
+@media (max-width: 480px) {
+  #content-wrapper {
+    padding: 10px;
+    gap: 10px;
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+  h2 {
+    font-size: 1rem;
+  }
+  p {
+    font-size: 0.8rem;
+  }
+  .glass-button {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  /* Theme dock: stack buttons vertically if needed */
+  #theme-buttons {
+    flex-direction: column;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 5px;
+    padding: 5px;
+  }
+  #theme-label {
+    font-size: 14px;
+  }
+}
