@@ -194,23 +194,34 @@ p {
   transform: scale(1.1);
 }
 
-/* Theme Buttons Container */
+/* Theme Buttons Dock (Glass Dock) */
 #theme-buttons {
   position: fixed;
   top: 20px;
-  right: 20px; /* Move to the top right */
+  right: 20px;
   z-index: 10000;
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 10px 15px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 8px 40px rgba(255, 255, 255, 0.15);
+  transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
 }
 
+/* Theme Label */
 #theme-label {
   font-size: 16px;
   font-weight: bold;
   color: white;
 }
-
+body[data-theme="autumn-afternoon"] #theme-label {
+  color: black;
+}
 
 /* Theme Button Styles (visible across themes) */
 .theme-btn {
@@ -255,12 +266,12 @@ body[data-theme="autumn-afternoon"] .glass-button {
 /* Keyframes */
 @keyframes fadeInUp {
   from {
-      opacity: 0;
-      transform: translateY(20px);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -269,42 +280,69 @@ body[data-theme="autumn-afternoon"] .glass-button {
   display: none;
 }
 
-#theme-label {
-  font-size: 16px;
-  font-weight: bold;
-  color: white;
-}
-
-body[data-theme="autumn-afternoon"] #theme-label {
-  color: black;
-}
 /* Logo Container: Fixed at top center */
 #logo-container {
   position: fixed;
-  top: 10px;            /* Adjust vertical spacing as needed */
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  z-index: 10000;       /* Ensure it sits above other elements */
+  z-index: 10000;
   text-align: center;
 }
 
 /* Logo Image */
 #logo {
-  max-height: 80px;     /* Adjust size as needed */
+  max-height: 80px;
   width: auto;
-}
-/* Logo Container: Fixed at top center */
-#logo-container {
-  position: fixed;
-  top: 10px;            /* Adjust vertical spacing as needed */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10000;       /* Ensure it sits above other elements */
-  text-align: center;
 }
 
-/* Logo Image */
-#logo {
-  max-height: 80px;     /* Adjust size as needed */
-  width: auto;
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  /* Stack main content vertically */
+  #content-wrapper {
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+    width: 95%;
+  }
+  /* Make About and Platform sections full width */
+  #about, #platform {
+    max-width: 100%;
+    width: 100%;
+  }
+  /* Adjust theme dock for mobile */
+  #theme-buttons {
+    top: 10px;
+    right: 10px;
+    gap: 5px;
+    padding: 5px 10px;
+    flex-wrap: wrap;
+  }
+  .theme-btn {
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 2px;
+  }
+  /* Adjust logo container */
+  #logo-container {
+    top: 5px;
+  }
+  #logo {
+    max-height: 50px;
+  }
+  /* Adjust headings and text for mobile */
+  h1 {
+    font-size: 1.8rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  p {
+    font-size: 0.85rem;
+  }
+  /* Adjust contact button on mobile */
+  .glass-button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
 }
