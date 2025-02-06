@@ -24,6 +24,9 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("app2").addEventListener("click", function () {
     window.open("https://gurjarmadanmohand.github.io/tictactoe/", "_blank");
   });
+  document.getElementById("app3").addEventListener("click", function () {
+    window.open("https://gurjarmadanmohand.github.io/currency-converter/", "_blank");
+  });
 
   // Particle Animation Setup
   const canvas = document.getElementById("particles");
