@@ -24,11 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("app2").addEventListener("click", function () {
     window.open("https://gurjarmadanmohand.github.io/tictactoe/", "_blank");
   });
-   document.getElementById("app3").addEventListener("click", function () {
+  document.getElementById("app3").addEventListener("click", function () {
     window.open("https://gurjarmadanmohand.github.io/currency-converter/", "_blank");
   });
-
-
+  document.getElementById("app4").addEventListener("click", function () {
+    window.open("https://gurjarmadanmohand.github.io/geeta/index.html", "_blank");
+  });
+   
   // Particle Animation Setup
   const canvas = document.getElementById("particles");
   const ctx = canvas.getContext("2d");
