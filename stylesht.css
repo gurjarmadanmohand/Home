@@ -13,7 +13,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  overflow: hidden;
+  overflow: hidden; /* Overridden in mobile media query */
   position: relative;
   cursor: auto;
   transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
@@ -196,11 +196,12 @@ p {
 
 /* Theme Buttons Dock (Glass Dock) */
 #theme-buttons {
+  /* CHANGED to inline-flex so it sizes exactly around content */
+  display: inline-flex;
   position: fixed;
   top: 20px;
   right: 20px;
   z-index: 10000;
-  display: flex;
   align-items: center;
   gap: 10px;
   padding: 10px 15px;
@@ -211,6 +212,11 @@ p {
   border-radius: 10px;
   box-shadow: 0 8px 40px rgba(255, 255, 255, 0.15);
   transition: background 0.5s ease-in-out, color 0.5s ease-in-out;
+
+  /* Force one row & prevent shrinking */
+  white-space: nowrap;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
 /* Theme Label */
@@ -233,6 +239,11 @@ body[data-theme="autumn-afternoon"] #theme-label {
   color: white;
   cursor: pointer;
   transition: background 0.3s, color 0.3s, border 0.3s;
+
+  /* Keep all theme buttons consistent in width and prevent text wrapping */
+  white-space: nowrap;
+  text-align: center;
+  min-width: 90px;
 }
 
 .theme-btn:hover {
@@ -298,55 +309,78 @@ body[data-theme="autumn-afternoon"] .glass-button {
 
 /* Mobile Responsive Styles */
 @media (max-width: 768px) {
+  /* Allow vertical scrolling so content isn't cut off */
+  body {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
   /* Stack main content vertically */
   #content-wrapper {
     flex-direction: column;
     gap: 20px;
     padding: 15px;
     width: 95%;
+    /* Push the content below the fixed theme buttons */
+    margin-top: 70px;
   }
+
   /* Make About and Platform sections full width */
   #about, #platform {
     max-width: 100%;
     width: 100%;
   }
-  /* Adjust theme dock: move to top center for mobile */
+
+  /* Adjust theme dock: center at top on mobile */
   #theme-buttons {
-    position: fixed;
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
+    right: auto;            /* override desktop's right:20px */
     gap: 5px;
     padding: 5px 10px;
-    flex-wrap: wrap;
+    white-space: nowrap;    /* keep a single row */
+    flex-wrap: nowrap;
+    flex-shrink: 0;
   }
+
   .theme-btn {
     padding: 5px 10px;
     font-size: 12px;
     margin: 2px;
+    min-width: 70px; /* Slightly smaller min-width on mobile */
   }
-  /* Adjust logo container */
+
+  /* Adjust logo container for mobile */
   #logo-container {
     top: 5px;
   }
+
   #logo {
     max-height: 50px;
   }
+
   /* Adjust headings and text for mobile */
   h1 {
     font-size: 1.8rem;
   }
+
   h2 {
     font-size: 1.2rem;
   }
+
   p {
     font-size: 0.85rem;
   }
+
   /* Adjust contact button on mobile */
   .glass-button {
     padding: 10px 20px;
     font-size: 16px;
   }
+
   /* For app icons, use a grid for 2 columns */
   #platform {
     display: grid;
@@ -354,6 +388,7 @@ body[data-theme="autumn-afternoon"] .glass-button {
     gap: 10px;
     padding: 15px;
   }
+
   .project {
     width: 120px;
     height: 120px;
@@ -380,14 +415,16 @@ body[data-theme="autumn-afternoon"] .glass-button {
     padding: 8px 16px;
     font-size: 14px;
   }
-  /* Theme dock: stack buttons vertically if needed */
+  /* Keep theme buttons horizontally at the top on very small screens */
   #theme-buttons {
-    flex-direction: column;
     top: 5px;
     left: 50%;
     transform: translateX(-50%);
     gap: 5px;
     padding: 5px;
+    white-space: nowrap;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
   }
   #theme-label {
     font-size: 14px;
