@@ -135,8 +135,9 @@ p {
 .project1 { background-image: url('images/todo.png'); }
 .project2 { background-image: url('images/tictactoe.png'); }
 .project3 { background-image: url('images/currency.png'); }
-.project4 { background-image: url('images/coming-soon.jpg'); }
+.project4 { background-image: url('images/krishna.png'); }
 .project5 { background-image: url('images/coming-soon.jpg'); }
+.project4 {background-color: #000;}
 
 /* Particle Canvas */
 #particles {
